@@ -1,0 +1,20 @@
+version: "3.4"
+services:
+  predictor: 
+    build:
+      context: ./image2 
+    environment: 
+      - PYTHONUNBUFFERED=1
+    network_mode: "host" 
+    volumes:
+      - ./image2:/app
+  consumer:
+    build:
+      context: ./image1
+    environment:
+      - PYTHONUNBUFFERED=1
+    network_mode: "host"
+    volumes:
+      - ./image1:/app
+    depends_on: 
+       - predictor
